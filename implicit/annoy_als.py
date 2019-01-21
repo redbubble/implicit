@@ -41,7 +41,6 @@ class AnnoyALSWrapper:
 
     def __init__(self, model: AlternatingLeastSquares, approximate_similar_items=True, approximate_recommend=True,
                  n_trees=50, search_k=-1):
-        import annoy # delay import in case the library is not installed
         self.model = model
 
         self.similar_items_index = None
@@ -66,6 +65,7 @@ class AnnoyALSWrapper:
         self.initialize()
 
     def initialize(self):
+        import annoy  # delay import in case the library is not installed
         # build up an Annoy Index with all the item_factors (for calculating
         # similar items)
         if self.approximate_similar_items:
