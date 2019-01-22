@@ -44,7 +44,6 @@ class NMSLibALSWrapper:
     def __init__(self, model: AlternatingLeastSquares,
                  approximate_similar_items=True, approximate_recommend=True,
                  method='hnsw', index_params=None, query_params=None):
-        import nmslib # delay import in case the library is not installed
         self.model = model
         if index_params is None:
             index_params = {'M': 16, 'post': 0, 'efConstruction': 400}
@@ -68,6 +67,7 @@ class NMSLibALSWrapper:
         self.initialize(show_progress)
 
     def initialize(self, show_progress=True):
+        import nmslib # delay import in case the library is not installed
         # create index for similar_items
         if self.approximate_similar_items:
             log.info("Building nmslib similar items index")
